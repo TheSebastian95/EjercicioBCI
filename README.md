@@ -1,0 +1,2 @@
+# EjercicioBCI
+Prueba Java BCI 
