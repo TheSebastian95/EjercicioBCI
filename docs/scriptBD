@@ -1,0 +1,5 @@
+Para la base de datos
+
+ String de coneccion --> url: jdbc:h2:mem:challangeBci;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
