@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "e2334aa6-9867-4e0c-8517-a60aec4dae06",
+		"name": "Challange BCI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Registrar Usuario Anon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Registrar Usuario\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.email).to.be.not.null;\r",
+							"    pm.expect(data.password).to.be.not.null;\r",
+							"    pm.globals.set(\"gb_user_email\", data.email);\r",
+							"    pm.globals.set(\"gb_user_password\", data.email);    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"22101121231230\",\n    \"email\": \"sorellana12@gmail.com\",\n    \"password\": \"Aasd12\",\n    \"modified\": null,\n    \"active\": true,\n    \"phones\": [\n        {\n            \"number\": 1234567,\n            \"cityCode\": 1,\n            \"contryCode\": 57\n        },\n        {\n            \"number\": 1234568,\n            \"cityCode\": 3,\n            \"contryCode\": 57\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticar usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token\", function () {\r",
+							"    var data = pm.response.json();\r",
+							"    pm.expect(data.token).to.be.not.null;\r",
+							"    pm.globals.set(\"access_token\", data.token);    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"sorellana12@gmail.com\",\r\n    \"password\": \"Aasd12\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Usuarios Autenticado",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/user/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"user",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Usuario Autenticado Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"c9\",\n    \"email\": \"sorellana12@gmail.com\",\n    \"password\": \"Aasdasdasdasasdasdasd23\",\n    \"active\": true,\n    \"phones\": [\n        {\n            \"number\": 1234567,\n            \"cityCode\": 1,\n            \"contryCode\": 57\n        },\n        {\n            \"number\": 1234568,\n            \"cityCode\": 3,\n            \"contryCode\": 57\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/user/sorellana12@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"user",
+						"sorellana12@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Usuario Autenticado",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8888/api/user/sorellana12@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"user",
+						"sorellana12@gmail.com"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
