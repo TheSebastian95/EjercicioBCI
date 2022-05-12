@@ -48,18 +48,18 @@ public class CommonUtil {
 
     public static void passCheck(String password) {
         int length = password.length();
-        if (length < 2) throw new IllegalArgumentException("¡La contraseña es demasiado corta!");
+        if (length < 2) throw new IllegalArgumentException("!the password is too short!");
 
         if (password.replaceAll("[A-Za-z0-9]", "").length() > 1)
-            throw new InvalidArgumentException("¡La contraseña contiene un carácteres no válidos!");
+            throw new InvalidArgumentException("!Password contains invalid characters!");
 
         boolean numberLength = password.replaceAll("[^0-9]", "").length() == 2;
         boolean uppercaseLength = password.replaceAll("[^A-Z]", "").length() == 1;
 
         if (!numberLength)
-            throw new InvalidArgumentException("¡La contraseña debe contener al menos dos números!");
+            throw new InvalidArgumentException("¡The password must contain at least two numbers!");
         else if (!uppercaseLength)
-            throw new InvalidArgumentException("¡La contraseña debe contener al menos una mayúscula!");
+            throw new InvalidArgumentException("¡The password must contain at least one numbers!");
     }
 
 
